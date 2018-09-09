@@ -9,7 +9,7 @@ NC='\e[0m'
 #intro
 printf "${biru}		                               
 			           Newscat APPS BOT
-				 Code By : Wanjas.com
+				 Code By : tutut
 "
 printf "${kuning}	_________________________________________________________________${NC}\n\n"
 rm award.tmp aid.txt info.tmp 2> /dev/null
@@ -25,7 +25,7 @@ if [[ $regtoken == "$ctoken" ]]
 		printf "${ijo}[!]${NC} Token Registered To BOT Server\n" 
 else
 	printf "${merah}[!]${NC} Please Regster Your Token\n"
-	printf "${kuning}[!]${NC} Contact : tambangakun@gmail.com\n"
+	printf "${kuning}[!]${NC} Contact : raalmukhtar52@gmail.com\n"
 	exit
 fi
 #token='5f52799c29f136364557effbe4cbf40e'
