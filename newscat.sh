@@ -7,33 +7,24 @@ kuning='\e[1;33m'
 biru='\e[1;34m'
 NC='\e[0m'
 #intro
-printf "${biru}		                               
-			           Newscat APPS BOT
-				 Code By : tutut
+printf "${ijo}
+			 ██████╗ ██╗   ██╗███████╗███████╗
+			██╔════╝ ██║   ██║╚══███╔╝╚══███╔╝
+			██║  ███╗██║   ██║  ███╔╝   ███╔╝ 
+			██║   ██║██║   ██║ ███╔╝   ███╔╝  
+			╚██████╔╝╚██████╔╝███████╗███████╗
+			 ╚═════╝  ╚═════╝ ╚══════╝╚══════╝                                 ${biru}
+			        Newscat APPS BOT
+				 Code By : Guzz
 "
 printf "${kuning}	_________________________________________________________________${NC}\n\n"
 rm award.tmp aid.txt info.tmp 2> /dev/null
-if [[ ! -f token.reg ]]
-	then
-printf "${kuning}[!]${NC} Insert Your Newscat Token: ";read token
-echo "$token"  >> token.reg
-fi
-ctoken=$(cat token.reg)
-regtoken=$(curl -s  https://github.com/raalmuhtar/adminfinder/blob/master/reg | grep -o "$ctoken" )
-if [[ $regtoken == "$ctoken" ]]
-	then
-		printf "${ijo}[!]${NC} Token Registered To BOT Server\n" 
-else
-	printf "${merah}[!]${NC} Please Regster Your Token\n"
-	printf "${kuning}[!]${NC} Contact : raalmukhtar52@gmail.com\n"
-	exit
-fi
-#token='5f52799c29f136364557effbe4cbf40e'
+printf "${kuning}[!]${NC} Insert Your Newscat Token: "; read token
 printf "${kuning}[!]${NC} Checking Token..."
-checktoken=$(curl -s -d "token=$ctoken" 'http://www.newscat.com/api/user/info' -o "info.tmp")
+checktoken=$(curl -s -d "token=$token" 'http://www.newscat.com/api/user/info' -o "info.tmp")
 getok=$(cat info.tmp | grep -Po '(?<=message":")[^"]*')
 getid=$(cat info.tmp | grep -Po '(?<=id":")[^"]*')
-gold=$(cat info.tmp | grep -Po '(?<=gold":")[^"]*')
+gold=$(cat info.tmp | grep -Po '(?<="gold":)[^,]*')
 if [[ $getok == "OK" ]]
 		then
 			printf "${ijo}Done${NC}\n"
@@ -43,7 +34,7 @@ if [[ $getok == "OK" ]]
 		else
 			printf "${merah}Failed${NC}\n"
 			printf "${merah}[!]${NC} Token : Error\n"
-				    exit 0
+				exit 0
 fi
 rm info.tmp 2> /dev/null
 printf "${kuning}[!]${NC} Getting News ID.."
@@ -52,7 +43,7 @@ getnews=$(curl -s "http://www.newscat.com/api/article/list?page=$pages" -m 60 | 
 getnewsok=$(cat aid.txt | sed -n 1p)
 	if [[ $getnewsok == '' ]]
 		then
-			printf "${merah}Failer${NC}\n"
+			printf "${merah}Failed${NC}\n"
 			exit
 		else
 		printf "${ijo}Done${NC}\n"
@@ -60,7 +51,7 @@ getnewsok=$(cat aid.txt | sed -n 1p)
 printf "${kuning}[!]${NC} Starting Bot..\n"
 botstart(){
 rm award.tmp 2> /dev/null
-bot=$(curl -s -X POST -d "token=$ctoken&aid" 'http://www.newscat.com/api/article/award' -o 'award.tmp')
+bot=$(curl -s -X POST -d "token=$token&aid=$aid" 'http://www.newscat.com/api/article/award' -o 'award.tmp')
 getmessage=$(cat award.tmp | grep -Po '(?<=message":")[^"]*')
 getgold=$(cat award.tmp | grep -Po '(?<=gold":")[^"]*')
 getreward=$(cat award.tmp | grep -Po '(?<=award":)[^,]*')
